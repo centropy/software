@@ -1,0 +1,38 @@
+<?php
+
+use Icinga\Module\Businessprocess\ImportedNode;
+$count = $this->bp->countChildren();
+$howMany = 'normal';
+
+if ($count < 20) {
+    $howMany = 'few';
+} elseif ($count > 50) {
+    $howMany = 'many';
+}
+
+?>
+<?php if (! $this->compact): ?>
+<div class="controls">
+<?= $this->tabs ?>
+  <h1><form method="post" action="<?= $this->url()->without('process') ?>" data-base-target="_self">
+  <?= $this->formSelect('node', $this->nodeName, array('class' => 'autosubmit'), $this->processList) ?>
+  </form>
+  <a href="<?= $this->url()->without('mode') ?>" title="<?= $this->escape('Switch to tree view') ?>" style="float: right"><?= $this->icon('sitemap') ?></a>
+  </h1>
+</div>
+<?php endif ?>
+
+<div class="content<?= $this->compact ? ' compact' : '' ?>" data-base-target="_next">
+  <div class="toplevel <?= $howMany ?>" data-base-target="_next">
+  <?php foreach ($this->bp->getChildren() as $name => $node): ?>
+  <div class="<?= strtolower($node->getStateName()) ?><?= $node->isHandled() ? ' handled' : '' ?>">
+<?php if ($node instanceof ImportedNode): ?>
+  <a href="<?= $this->url('businessprocess/process/show', array('config' => $this->configName, 'node' => $name)) ?>"><?= $this->escape($node->getAlias()) ?></a>
+<?php else: ?>
+  <a href="<?= $this->url('businessprocess/process/show', array('config' => $this->configName, 'node' => $this->nodeName)) ?>"><?= $this->escape($node->getAlias()) ?></a>
+<?php endif ?>
+  </div>
+  <?php endforeach ?>
+  </div>
+  <?= $this->render('warnings.phtml') ?>
+</div>

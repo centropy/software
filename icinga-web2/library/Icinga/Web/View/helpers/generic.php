@@ -1,0 +1,16 @@
+<?php
+/* Icinga Web 2 | (c) 2013-2015 Icinga Development Team | GPLv2+ */
+
+namespace Icinga\Web\View;
+
+use Icinga\Authentication\Manager;
+use Icinga\Web\Widget;
+
+$this->addHelperFunction('auth', function () {
+    return Manager::getInstance();
+});
+
+$this->addHelperFunction('widget', function ($name, $options = null) {
+    return Widget::create($name, $options);
+});
+

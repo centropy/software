@@ -1,0 +1,144 @@
+/*! Icinga Web 2 | (c) 2013-2015 Icinga Development Team | GPLv2+ */
+
+/* Color definitions */
+@colorGray: #f9f9f9;
+@colorLinkDefault: #049baf;
+@colorTextDefault: #666;
+@colorTextDarkDefault: #555;
+@colorPetrol: #049baf;
+@colorOk: #44bb77;
+@colorWarning: #ffaa44;
+@colorWarningHandled: #ffcc66;
+@colorCritical: #ff5566;
+@colorCriticalHandled: #ff99aa;
+/*
+@colorUnknown: #dd66ff;
+@colorUnknownHandled: #ee99ff;
+@colorUnreachable: #dd66ff;
+@colorUnreachableHandled: #ee99ff;
+*/
+@colorUnknown: #aa44ff;
+@colorUnknownHandled: #cc77ff;
+@colorUnreachable: #aa44ff;
+@colorUnreachableHandled: #cc77ff;
+@colorPending: #77aaff;
+@colorInvalid: #999;
+@colorFormNotificationInfo: #77aaff;
+@colorFormNotificationWarning: #ffaa44;
+@colorFormNotificationError: #ff5566;
+
+/* Mixins */
+
+.page-header(@borderSize: 2px; @fontSize: 2em; @textColor: @colorTextDarkDefault) {
+  font-size: @fontSize;
+  color: @textColor;
+  border-bottom: @borderSize solid @colorPetrol;
+  a {
+    text-decoration: none;
+    color: inherit;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+/*** Base rules ***/
+* {
+  font-size: 100%;
+}
+
+html, body {
+  height: 100%;
+}
+
+html {
+  background: #fff;
+}
+
+img {
+  border: none;
+}
+
+/*
+TODO: -xy-text-resize-dings
+*/
+
+html, body, form {
+  /* TODO: Really 0 ? */
+  margin: 0;
+  padding: 0;
+}
+
+table {
+  border-collapse: collapse;
+  border: none;
+}
+
+body {
+  font-family: Calibri, Helvetica, sans-serif;
+  color: #666;
+  background-color: white;
+}
+
+a {
+  color: #333;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: black;
+  text-decoration: underline;
+}
+
+/* W3C Recommendation <http://www.w3.org/TR/CSS21/sample.html> (except h4) */
+h1 {
+    .page-header();
+}
+
+h2 {
+    font-size:  1.5em;
+    color: @colorPetrol;
+}
+
+h3 {
+  .page-header(1px, 1.17em);
+}
+
+h4 {
+  font-size:    1em;
+  color: @colorPetrol;
+}
+
+h5 {
+  .page-header(1px, .83em);
+}
+
+h6 {
+    font-size:  .75em;
+    color: @colorPetrol;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  a {
+    text-decoration: none;
+    color: inherit;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+button {
+  font-family: inherit;
+}
+
+#fontsize-calc {
+  display: none;
+  width: 1000em;
+  height: 1em;
+  font-size: 1em;
+  position: absolute;
+  top: -2em;
+}
+/*** END of Base rules */

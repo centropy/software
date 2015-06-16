@@ -1,0 +1,44 @@
+<div class="controls" data-base-target="_main">
+  <?= $tabs; ?>
+</div>
+<div class="content" data-base-target="_next">
+  <a href="<?= $this->href('/config/createresource'); ?>">
+    <?= $this->icon('plus'); ?> <?= $this->translate('Create A New Resource'); ?>
+  </a>
+  <table class="action" id="resource-edit-table">
+    <thead>
+      <th><?= $this->translate('Resource'); ?></th>
+      <th style="width: 5em"><?= $this->translate('Remove'); ?></th>
+    </thead>
+    <tbody>
+    <?php foreach ($this->resources as $name): ?>
+      <tr>
+        <td>
+          <?= $this->qlink(
+            $name,
+            'config/editresource',
+            array('resource' => $name),
+            array(
+                'icon'  => 'edit',
+                'title' => sprintf($this->translate('Edit resource %s'), $name)
+            )
+          ); ?>
+        </td>
+        <td>
+          <center>
+            <?= $this->qlink(
+              '',
+              'config/removeresource',
+              array('resource' => $name),
+              array(
+                  'icon'    => 'trash',
+                  'title'   => sprintf($this->translate('Remove resource %s'), $name)
+              )
+            ); ?>
+          </center>
+        </td>
+      </tr>
+    <?php endforeach; ?>
+    </tbody>
+  </table>
+</div>

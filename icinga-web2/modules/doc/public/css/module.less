@@ -1,0 +1,99 @@
+/*! Icinga Web 2 | (c) 2013-2015 Icinga Development Team | GPLv2+ */
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.gradient(@a: #f9f9f9; @b: #f5f5f5) {
+  background: @a;
+  background: -moz-linear-gradient(top, @a, 0%, @b, 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, @a), color-stop(100%, @b));
+  background: -webkit-linear-gradient(top, @a 0%, @b 100%);
+  background: -o-linear-gradient(top, @a 0%, @b 100%);
+  background: -ms-linear-gradient(top, @a 0%, @b 100%);
+  background: linear-gradient(to bottom, @a 0%, @b 100%);
+}
+
+table {
+  // Reset
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+}
+
+th, td {
+  padding: 0.25rem;
+  text-align: left;
+  line-height: 1.25rem;
+  color: #666;
+}
+
+td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+tbody tr:nth-child(odd) {
+  .gradient;
+}
+
+tbody tr:nth-child(even) {
+  background: #fff;
+}
+
+tbody tr:hover {
+  background: #666;
+  td {
+    color: #fff;
+  }
+}
+
+@icinga: #049baf;
+
+thead {
+  th {
+    color: @icinga;
+    .uppercase;
+    .bold;
+  }
+  border-bottom: 0.25rem solid @icinga;
+}
+
+code {
+  // Reset
+  background-color: inherit;
+  border: none;
+  padding: 0;
+  display: inline;
+}
+
+code {
+  color: @icinga;
+  .bold;
+}
+
+pre > code {
+  color: #fff;
+  font-weight: normal;
+
+  width: 100%;
+  background-color: #666;
+  display: block;
+  padding: 1em;
+  .box-shadow;
+}
+
+ul.toc {
+  margin: 0;
+  padding: 0 0 0 1em;
+}
+
+.search-highlight {
+  color: #FBE012;
+  background: @icinga;
+}

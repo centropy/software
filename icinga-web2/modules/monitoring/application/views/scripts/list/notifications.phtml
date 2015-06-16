@@ -1,0 +1,70 @@
+<?php
+use Icinga\Module\Monitoring\Object\Host;
+use Icinga\Module\Monitoring\Object\Service;
+
+if (! $this->compact): ?>
+<div class="controls">
+  <?= $this->tabs; ?>
+  <?= $this->sortBox; ?>
+  <?= $this->limiter; ?>
+  <?= $this->paginator; ?>
+  <?= $this->filterEditor; ?>
+</div>
+<?php endif ?>
+<div class="content">
+<?php
+
+if (count($notifications) === 0) {
+    echo $this->translate('No notifications found matching the filter') . '</div>';
+    return;
+}
+?>
+    <table data-base-target="_next" class="action">
+    <tbody>
+    <?php foreach ($notifications as $notification):
+        if (isset($notification->service_description)) {
+            $isService = true;
+            $stateName = Service::getStateText($notification->notification_state);
+        } else {
+            $isService = false;
+            $stateName = Host::getStateText($notification->notification_state);
+        }
+    ?>
+        <tr class="state <?= $stateName ?>">
+            <td class="state">
+                <?= $this->timeAgo($notification->notification_start_time, $this->compact) ?>
+            </td>
+            <td style="font-size: 0.8em">
+                <?php if ($isService): ?>
+                    <?= $this->icon('service', $this->translate('Service')); ?>
+                    <?= $this->link()->service(
+                        $notification->service_description,
+                        $notification->service_display_name,
+                        $notification->host_name,
+                        $notification->host_display_name
+                    ) ?>
+                <?php else: ?>
+                    <?= $this->icon('host', $this->translate('Host')); ?>
+                    <?= $this->link()->host($notification->host_name, $notification->host_display_name) ?>
+                <?php endif ?>
+                <br>
+                <?= $this->escape($this->ellipsis($notification->notification_output, 10000)) ?>
+                <br>
+                <?php if (! $this->contact): ?>
+                    <small>
+                        <?= sprintf(
+                            $this->translate('Sent to %s'),
+                            $this->qlink(
+                                $notification->notification_contact_name,
+                                'monitoring/show/contact',
+                                array('contact_name' => $notification->notification_contact_name)
+                            )
+                        ) ?>
+                    </small>
+                <?php endif ?>
+            </td>
+        </tr>
+    <?php endforeach ?>
+    </tbody>
+    </table>
+</div>
